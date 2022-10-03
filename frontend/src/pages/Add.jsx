@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const [book, setBook] = useState({
@@ -9,8 +11,20 @@ const Add = () => {
     cover: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/books", book);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   console.log(book);
@@ -26,7 +40,7 @@ const Add = () => {
       />
       <input
         type="text"
-        placeholder="desc"
+        placeholder="description"
         name="desc"
         onChange={handleChange}
       />
@@ -42,6 +56,8 @@ const Add = () => {
         name="cover"
         onChange={handleChange}
       />
+
+      <button onClick={handleClick}>Add</button>
     </div>
   );
 };
