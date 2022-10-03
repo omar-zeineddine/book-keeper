@@ -23,10 +23,12 @@ const Books = () => {
       <div className="books">
         {books.map((book) => (
           <div className="book" key={book.id}>
-            {book.over && <img src={book.cover} />}
+            {book.cover && <img src={book.cover} />}
             <h2>{book.title}</h2>
             <p>{book.desc}</p>
             <span>{book.price}</span>
+            <button className="delete">Delete</button>
+            <button className="update">Update</button>
           </div>
         ))}
       </div>
